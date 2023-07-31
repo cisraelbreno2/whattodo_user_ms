@@ -1,16 +1,16 @@
-package br.com.user_ms.useCase.dto;
+package br.com.user_ms.domain.port.model;
 
-import br.com.user_ms.useCase.entity.enums.Status;
+import br.com.user_ms.domain.entity.enums.Status;
 
 import java.util.UUID;
 
-public class UserRegisterResponseDto {
+public class UserRegisterResponse {
 
     private UUID id;
     private String feedback;
     private Status status;
 
-    public UserRegisterResponseDto(UUID id, String feedback, Status status) {
+    public UserRegisterResponse(UUID id, String feedback, Status status) {
         this.id = id;
         this.feedback = feedback;
         this.status = status;

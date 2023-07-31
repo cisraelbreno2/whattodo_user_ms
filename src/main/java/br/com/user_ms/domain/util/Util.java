@@ -1,6 +1,4 @@
-package br.com.user_ms.useCase.util;
-
-import java.util.Arrays;
+package br.com.user_ms.domain.util;
 
 public class Util {
 

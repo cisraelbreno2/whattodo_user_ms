@@ -1,4 +1,4 @@
-package br.com.user_ms.useCase.entity.enums;
+package br.com.user_ms.domain.entity.enums;
 
 public enum Status {
 

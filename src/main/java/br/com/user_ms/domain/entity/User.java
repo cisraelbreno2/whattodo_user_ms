@@ -1,8 +1,7 @@
-package br.com.user_ms.useCase.entity;
+package br.com.user_ms.domain.entity;
 
-import br.com.user_ms.useCase.entity.enums.Status;
+import br.com.user_ms.domain.entity.enums.Status;
 
-import java.util.List;
 import java.util.UUID;
 
 public class User {
