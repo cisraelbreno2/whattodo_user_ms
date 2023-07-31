@@ -7,8 +7,8 @@ import br.com.user_ms.domain.adapters.UserAdapter;
 import br.com.user_ms.domain.entity.factory.UserFactory;
 import br.com.user_ms.domain.port.UserRegisterPort;
 
-import static br.com.user_ms.domain.util.Util.isNull;
-import static br.com.user_ms.domain.util.Util.isNullOrEmpty;
+import static br.com.user_ms.domain.util.ObjectUtils.isNullOrEmpty;
+import static java.util.Objects.isNull;
 
 public class UserRegisterUseCase implements UserRegisterPort {
 
@@ -27,7 +27,7 @@ public class UserRegisterUseCase implements UserRegisterPort {
         var user = UserFactory.fromRequest(userRegisterRequest);
         user = userAdapter.saveUser(user);
 
-        if(isNull(user) || isNullOrEmpty(user.getId())){
+        if(isNull(user) || isNull(user.getId())){
             throw new UserCreateException("Erro ao salvar usuario");
         }
 
