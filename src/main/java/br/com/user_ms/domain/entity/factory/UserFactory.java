@@ -10,19 +10,13 @@ import static br.com.user_ms.domain.util.Util.*;
 
 public class UserFactory {
 
-    public User create(UserRegisterRequest dto){
+    private UserFactory(){}
 
-        if(isNullOrEmpty(dto, dto.getEmail(), dto.getName(), dto.getSurname(), dto.getPassword())){
-            throw new UserCreateException("Os campos 'name', 'surname', 'email' e 'password' não podem ser nulos");
-        }
-        return new User(dto.getName(), dto.getSurname(), dto.getEmail(), dto.getPassword(), Status.ATIVO);
+    public static User fromRequest(UserRegisterRequest request){
+        return new User(request.getName(), request.getSurname(), request.getEmail(), request.getPassword(), Status.ATIVO);
     }
 
-    public UserRegisterResponse create(User user){
-        if(isNull(user) || isNullOrEmpty(user.getId())){
-            throw new UserCreateException("Erro ao salvar usuario");
-        }
-
+    public static UserRegisterResponse toResponse(User user){
         return new UserRegisterResponse(user.getId(), "Usuario criado com sucesso", user.getStatus());
     }
 }

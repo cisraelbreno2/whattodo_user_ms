@@ -5,5 +5,5 @@ import br.com.user_ms.domain.port.model.UserRegisterResponse;
 
 public interface UserRegisterPort {
 
-    UserRegisterResponse register(UserRegisterRequest userRegisterRequest);
+    UserRegisterResponse register(final UserRegisterRequest userRegisterRequest);
 }
