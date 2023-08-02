@@ -1,9 +1,15 @@
 package br.com.user_ms.domain.entity;
 
 import br.com.user_ms.domain.entity.enums.Status;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.UUID;
 
+import static java.util.Objects.isNull;
+
+@Getter
+@AllArgsConstructor
 public class User {
 
     private UUID id;
@@ -31,31 +37,17 @@ public class User {
         this.status = status;
     }
 
-    public UUID getId() {
-        return id;
+    public void atribuirName(final String name){
+        if(isNull(name) || name.isEmpty()){
+            throw new IllegalArgumentException("Nome não pode estar vazio");
+        }
+        this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getLinkPictureProfile() {
-        return linkPictureProfile;
-    }
-
-    public Status getStatus() {
-        return status;
+    public void atribuirSurname(final String surname){
+        if(isNull(surname) || surname.isEmpty()){
+            throw new IllegalArgumentException("Surnome não pode estar vazio");
+        }
+        this.surname = surname;
     }
 }

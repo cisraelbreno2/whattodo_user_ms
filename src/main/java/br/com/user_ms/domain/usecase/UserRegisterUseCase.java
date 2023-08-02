@@ -24,13 +24,13 @@ public class UserRegisterUseCase implements UserRegisterPort {
             throw new UserCreateException("Os campos 'name', 'surname', 'email' e 'password' não podem ser nulos");
         }
 
-        var user = UserFactory.fromRequest(userRegisterRequest);
+        var user = UserFactory.fromRegisterRequest(userRegisterRequest);
         user = userAdapter.saveUser(user);
 
         if(isNull(user) || isNull(user.getId())){
             throw new UserCreateException("Erro ao salvar usuario");
         }
 
-        return UserFactory.toResponse(user);
+        return UserFactory.toRegisterResponse(user);
     }
 }
