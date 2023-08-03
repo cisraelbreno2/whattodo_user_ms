@@ -3,6 +3,7 @@ package br.com.user_ms.domain.entity;
 import br.com.user_ms.domain.entity.enums.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
@@ -10,6 +11,7 @@ import static java.util.Objects.isNull;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class User {
 
     private UUID id;

@@ -10,5 +10,5 @@ public interface UserMapper {
 
     UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
-    User userMofifyRequestToUser(UserModifyRequest userModifyRequest);
+    User userModifyRequestToUser(UserModifyRequest userModifyRequest);
 }
