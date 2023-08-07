@@ -12,10 +12,10 @@ import br.com.user_ms.domain.mapper.UserMapper;
 import br.com.user_ms.domain.port.UserModifyPort;
 import br.com.user_ms.domain.port.model.UserModifyRequest;
 import br.com.user_ms.domain.port.model.UserModifyResponse;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import static br.com.user_ms.domain.entity.enums.Microsservice.USUARIO;
 import static br.com.user_ms.domain.entity.enums.Status.MODIFICADO;
 import static br.com.user_ms.domain.util.ObjectUtils.isNullOrEmpty;
 import static java.util.Objects.isNull;
@@ -25,8 +25,6 @@ import static java.util.Objects.isNull;
 public class UserModifyUseCase implements UserModifyPort {
 
     private final UserAdapter userAdapter;
-
-    private final UserMapper userMapper;
 
     private final ImageAdapter imageAdapter;
 
@@ -52,11 +50,11 @@ public class UserModifyUseCase implements UserModifyPort {
                             new ImageModifyRequest(image.get().getId(),
                                     userModifyRequest.getPerfilImage(),
                                     image.get().getMicrosservice())));
-        }else if(image.isEmpty()){
+        }else {
             userBuilder.linkPictureProfile(imageAdapter
                     .saveImage(
                             new ImageSaveRequest(userModifyRequest.getPerfilImage()
-                                    ,image.get().getMicrosservice())));
+                                    , USUARIO.name())));
         }
 
         user = userAdapter.saveUser(userBuilder.build());
