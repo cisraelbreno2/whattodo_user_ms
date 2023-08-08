@@ -10,7 +10,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserModifyResponse {
 
-    private UUID id;
     private String feedback;
     private Status status;
 }

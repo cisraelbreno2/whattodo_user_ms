@@ -12,7 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static br.com.user_ms.domain.entity.enums.Status.ATIVO;
+
+import static br.com.user_ms.domain.entity.enums.Status.ACTIVE;
 import static java.util.Objects.nonNull;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -49,7 +50,7 @@ class UserRegisterUseCaseTest {
         assertEquals(userRegisterRequest.getEmail(), user.getEmail());
         assertEquals(userRegisterRequest.getSurname(), user.getSurname());
         assertEquals(userRegisterRequest.getPassword(), user.getPassword());
-        assertEquals(ATIVO, user.getStatus());
+        assertEquals(ACTIVE, user.getStatus());
 
         assert nonNull(userRegisterResponse.getId());
         assertEquals(user.getStatus(), userRegisterResponse.getStatus());

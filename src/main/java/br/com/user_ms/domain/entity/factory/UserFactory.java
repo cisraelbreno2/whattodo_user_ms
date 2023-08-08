@@ -12,7 +12,7 @@ public class UserFactory {
     private UserFactory(){}
 
     public static User fromRegisterRequest(UserRegisterRequest request){
-        return new User(request.getName(), request.getSurname(), request.getEmail(), request.getPassword(), Status.ATIVO);
+        return new User(request.getName(), request.getSurname(), request.getEmail(), request.getPassword(), Status.ACTIVE);
     }
 
     public static UserRegisterResponse toRegisterResponse(User user){
@@ -20,7 +20,7 @@ public class UserFactory {
     }
 
     public static UserModifyResponse toModifyResponse(User user){
-        return new UserModifyResponse(user.getId(),"Usuario alterado com sucesso", user.getStatus());
+        return new UserModifyResponse("Usuario alterado com sucesso", user.getStatus());
     }
 
 }

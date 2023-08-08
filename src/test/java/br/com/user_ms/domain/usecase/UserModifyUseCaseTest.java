@@ -3,6 +3,7 @@ package br.com.user_ms.domain.usecase;
 import br.com.user_ms.domain.adapters.UserAdapter;
 import br.com.user_ms.domain.entity.User;
 import br.com.user_ms.domain.exceptions.UserCreateException;
+import br.com.user_ms.domain.exceptions.UserModifyExeption;
 import br.com.user_ms.domain.faker.UserFaker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static br.com.user_ms.domain.entity.enums.Status.MODIFICADO;
+import static br.com.user_ms.domain.entity.enums.Status.MODIFY;
 import static java.util.Objects.nonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -33,10 +34,11 @@ public class UserModifyUseCaseTest {
 
     @Test
     @DisplayName("Teste para verificar se o usuario foi modificado")
-    public void userRegister(){
+    public void userModify(){
         var userModifyRequest = UserFaker.createModifyValidRequest();
 
         when(userAdapter.saveUser(any())).thenReturn(UserFaker.createModifyValidUser());
+        when(userAdapter.findById(any())).thenReturn(UserFaker.findByIdValidUser());
 
         var userModifyResponse = useCase.modify(userModifyRequest);
 
@@ -49,32 +51,19 @@ public class UserModifyUseCaseTest {
         assert user.getId() != null;
         assertEquals(userModifyRequest.getName(), user.getName());
         assertEquals(userModifyRequest.getSurname(), user.getSurname());
-        assertEquals(MODIFICADO, user.getStatus());
-
-        assert nonNull(userModifyResponse.getId());
+        assertEquals(MODIFY, user.getStatus());
         assertEquals(user.getStatus(), userModifyResponse.getStatus());
     }
 
     @Test
-    @DisplayName("Teste para verificar se o UserRegisterRequestDto esta com todos os parametros para ser modificado")
-    public void userRegisterRequestExeption(){
+    @DisplayName("Teste para verificar se o UserModifyRequestDto esta com todos os parametros para ser modificado")
+    public void userModifyRequestExeption(){
         var userModifyRequestNoName = UserFaker.createModifyRequestWithNoName();
 
-        assertThrows(UserCreateException.class, () -> useCase.modify(userModifyRequestNoName));
+        assertThrows(UserModifyExeption.class, () -> useCase.modify(userModifyRequestNoName));
 
-        var userRegisterRequestNoSurname = UserFaker.createModifyRequestWithNoSurname();
+        var userModifyRequestNoSurname = UserFaker.createModifyRequestWithNoSurname();
 
-        assertThrows(UserCreateException.class, () -> useCase.modify(userRegisterRequestNoSurname));
-    }
-
-
-    @Test
-    @DisplayName("Teste para verificar se o usuario não foi modificado")
-    public void userRegisterResponseExeption(){
-        var userModigyRequest = UserFaker.createModifyValidRequest();
-
-        when(userAdapter.saveUser(any())).thenReturn(UserFaker.createModifyUnsavedUser());
-
-        assertThrows(UserCreateException.class, () -> useCase.modify(userModigyRequest));
+        assertThrows(UserModifyExeption.class, () -> useCase.modify(userModifyRequestNoSurname));
     }
 }

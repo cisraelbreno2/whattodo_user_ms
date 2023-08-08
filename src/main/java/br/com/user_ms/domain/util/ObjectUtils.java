@@ -12,6 +12,10 @@ public class ObjectUtils {
             return true;
         }
 
+        if(Stream.of(objects).anyMatch(o -> o instanceof String && String.valueOf(o).isEmpty())){
+            return true;
+        }
+
         return Stream.of(objects).anyMatch(Objects::isNull);
     }
 
