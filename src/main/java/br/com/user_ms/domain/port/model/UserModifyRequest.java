@@ -12,5 +12,4 @@ public class UserModifyRequest {
     private UUID id;
     private String name;
     private String surname;
-    private Byte perfilImage;
 }

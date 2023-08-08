@@ -1,5 +1,6 @@
 package br.com.user_ms.domain.entity.factory;
 
+import br.com.user_ms.domain.port.model.UserModifyRequest;
 import br.com.user_ms.domain.port.model.UserModifyResponse;
 import br.com.user_ms.domain.port.model.UserRegisterRequest;
 import br.com.user_ms.domain.port.model.UserRegisterResponse;
@@ -19,7 +20,7 @@ public class UserFactory {
     }
 
     public static UserModifyResponse toModifyResponse(User user){
-        return new UserModifyResponse("Usuario alterado com sucesso");
+        return new UserModifyResponse(user.getId(),"Usuario alterado com sucesso", user.getStatus());
     }
 
 }

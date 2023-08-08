@@ -8,7 +8,6 @@ import br.com.user_ms.domain.entity.User;
 import br.com.user_ms.domain.entity.factory.UserFactory;
 import br.com.user_ms.domain.exceptions.UserCreateException;
 import br.com.user_ms.domain.exceptions.UserModifyExeption;
-import br.com.user_ms.domain.mapper.UserMapper;
 import br.com.user_ms.domain.port.UserModifyPort;
 import br.com.user_ms.domain.port.model.UserModifyRequest;
 import br.com.user_ms.domain.port.model.UserModifyResponse;
@@ -26,38 +25,21 @@ public class UserModifyUseCase implements UserModifyPort {
 
     private final UserAdapter userAdapter;
 
-    private final ImageAdapter imageAdapter;
-
     @Override
     public UserModifyResponse modify(UserModifyRequest userModifyRequest) {
         if(isNullOrEmpty(userModifyRequest.getId(), userModifyRequest.getName(), userModifyRequest.getSurname())){
             throw new UserModifyExeption("Os campos de identificador, nome e sobrenome não podem estar vazios");
         }
         var user = userAdapter.findById(userModifyRequest.getId());
-        var image = imageAdapter.findImageByLink(user.getLinkPictureProfile());
 
-        var userBuilder = User
+        user = User
                 .builder()
                 .id(userModifyRequest.getId())
                 .status(MODIFICADO)
                 .name(userModifyRequest.getName())
-                .surname(userModifyRequest.getSurname());
+                .surname(userModifyRequest.getSurname()).build();
 
-
-        if(image.isPresent()){
-            userBuilder.linkPictureProfile(imageAdapter
-                    .modifyImage(
-                            new ImageModifyRequest(image.get().getId(),
-                                    userModifyRequest.getPerfilImage(),
-                                    image.get().getMicrosservice())));
-        }else {
-            userBuilder.linkPictureProfile(imageAdapter
-                    .saveImage(
-                            new ImageSaveRequest(userModifyRequest.getPerfilImage()
-                                    , USUARIO.name())));
-        }
-
-        user = userAdapter.saveUser(userBuilder.build());
+        user = userAdapter.saveUser(user);
 
         if(isNull(user) || isNull(user.getId())){
             throw new UserCreateException("Erro ao salvar usuario");
