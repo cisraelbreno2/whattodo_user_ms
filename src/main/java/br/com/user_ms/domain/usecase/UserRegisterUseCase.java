@@ -7,7 +7,9 @@ import br.com.user_ms.domain.adapters.UserAdapter;
 import br.com.user_ms.domain.entity.factory.UserFactory;
 import br.com.user_ms.domain.port.UserRegisterPort;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static br.com.user_ms.domain.util.ObjectUtils.isNullOrEmpty;
 import static java.util.Objects.isNull;
@@ -26,6 +28,7 @@ public class UserRegisterUseCase implements UserRegisterPort {
 
         var user = UserFactory.fromRegisterRequest(userRegisterRequest);
         user = userAdapter.saveUser(user);
+
 
         if(isNull(user) || isNull(user.getId())){
             throw new UserCreateException("Erro ao salvar usuario");

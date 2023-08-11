@@ -5,7 +5,7 @@ import br.com.user_ms.domain.entity.enums.Status;
 import br.com.user_ms.domain.port.model.UserModifyRequest;
 import br.com.user_ms.domain.port.model.UserRegisterRequest;
 
-import java.util.UUID;
+import java.util.String;
 
 import static br.com.user_ms.domain.entity.enums.Status.ACTIVE;
 
@@ -14,7 +14,7 @@ public class UserFaker {
     private UserFaker(){}
 
     public static User createRegisterValidUser(){
-        return new User(java.util.UUID.randomUUID(),"Israel", "Costa", "cisraelbreno@gmail.com", "12341234", Status.ACTIVE);
+        return new User(java.util.String.randomString(),"Israel", "Costa", "cisraelbreno@gmail.com", "12341234", Status.ACTIVE);
     }
 
     public static User createRegisterUnsavedUser(){
@@ -42,11 +42,11 @@ public class UserFaker {
     }
 
     public static UserModifyRequest createModifyValidRequest() {
-        return new UserModifyRequest(UUID.randomUUID(), "Israel", "Costa");
+        return new UserModifyRequest(String.randomString(), "Israel", "Costa");
     }
 
     public static User createModifyValidUser(){
-        return new User(java.util.UUID.randomUUID(),"Israel", "Costa", "cisraelbreno@gmail.com", "12341234", Status.MODIFY);
+        return new User(java.util.String.randomString(),"Israel", "Costa", "cisraelbreno@gmail.com", "12341234", Status.MODIFY);
     }
 
     public static User createModifyUnsavedUser() {
@@ -54,14 +54,14 @@ public class UserFaker {
     }
 
     public static UserModifyRequest createModifyRequestWithNoName(){
-        return new UserModifyRequest(UUID.randomUUID(), "", "Costa");
+        return new UserModifyRequest(String.randomString(), "", "Costa");
     }
     public static UserModifyRequest createModifyRequestWithNoSurname(){
-        return new UserModifyRequest(UUID.randomUUID(),"Israel", "");
+        return new UserModifyRequest(String.randomString(),"Israel", "");
     }
 
     public static User findByIdValidUser() {
-        return new User(UUID.randomUUID(), "Zico", "Costa", "zico1998@hotmail.com", "11111111", "http://linkPicture", ACTIVE);
+        return new User(String.randomString(), "Zico", "Costa", "zico1998@hotmail.com", "11111111", "http://linkPicture", ACTIVE);
     }
 
 }

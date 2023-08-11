@@ -1,22 +1,18 @@
 package br.com.user_ms.domain.entity;
 
 import br.com.user_ms.domain.entity.enums.Status;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-import java.util.UUID;
+import lombok.*;
 
 import static java.util.Objects.isNull;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class User {
 
-    private UUID id;
+    private String id;
     private String name;
     private String surname;
     private String email;
@@ -24,7 +20,7 @@ public class User {
     private String linkPictureProfile;
     private Status status;
 
-    public User(UUID id, String name, String surname, String email, String password, Status status) {
+    public User(String id, String name, String surname, String email, String password, Status status) {
         this.id = id;
         this.name = name;
         this.surname = surname;
@@ -41,17 +37,21 @@ public class User {
         this.status = status;
     }
 
-    public void atribuirName(final String name){
+    public void modificarName(final String name){
         if(isNull(name) || name.isEmpty()){
             throw new IllegalArgumentException("Nome não pode estar vazio");
         }
         this.name = name;
     }
 
-    public void atribuirSurname(final String surname){
+    public void modificarSurname(final String surname){
         if(isNull(surname) || surname.isEmpty()){
             throw new IllegalArgumentException("Surnome não pode estar vazio");
         }
         this.surname = surname;
+    }
+
+    public void modificarStatus(Status status){
+        this.status = status;
     }
 }

@@ -2,7 +2,6 @@ package br.com.user_ms.domain.usecase;
 
 import br.com.user_ms.domain.adapters.UserAdapter;
 import br.com.user_ms.domain.entity.User;
-import br.com.user_ms.domain.exceptions.UserCreateException;
 import br.com.user_ms.domain.exceptions.UserModifyExeption;
 import br.com.user_ms.domain.faker.UserFaker;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import static br.com.user_ms.domain.entity.enums.Status.MODIFY;
-import static java.util.Objects.nonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
@@ -52,7 +50,7 @@ public class UserModifyUseCaseTest {
         assertEquals(userModifyRequest.getName(), user.getName());
         assertEquals(userModifyRequest.getSurname(), user.getSurname());
         assertEquals(MODIFY, user.getStatus());
-        assertEquals(user.getStatus(), userModifyResponse.getStatus());
+        assertEquals(user.getStatus(), userModifyResponse.status());
     }
 
     @Test

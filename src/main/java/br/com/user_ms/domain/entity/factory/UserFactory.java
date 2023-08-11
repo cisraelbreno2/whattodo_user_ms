@@ -1,11 +1,10 @@
 package br.com.user_ms.domain.entity.factory;
 
-import br.com.user_ms.domain.port.model.UserModifyRequest;
+import br.com.user_ms.domain.entity.User;
+import br.com.user_ms.domain.entity.enums.Status;
 import br.com.user_ms.domain.port.model.UserModifyResponse;
 import br.com.user_ms.domain.port.model.UserRegisterRequest;
 import br.com.user_ms.domain.port.model.UserRegisterResponse;
-import br.com.user_ms.domain.entity.User;
-import br.com.user_ms.domain.entity.enums.Status;
 
 public class UserFactory {
 
