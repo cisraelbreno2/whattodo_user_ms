@@ -6,17 +6,19 @@ import br.com.user_ms.domain.port.model.UserRegisterResponse;
 import br.com.user_ms.domain.adapters.UserAdapter;
 import br.com.user_ms.domain.entity.factory.UserFactory;
 import br.com.user_ms.domain.port.UserRegisterPort;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static br.com.user_ms.domain.util.ObjectUtils.isNullOrEmpty;
 import static java.util.Objects.isNull;
 
+@Service
+@RequiredArgsConstructor
 public class UserRegisterUseCase implements UserRegisterPort {
 
     private final UserAdapter userAdapter;
-
-    public UserRegisterUseCase(final UserAdapter userAdapter) {
-        this.userAdapter = userAdapter;
-    }
 
     @Override
     public UserRegisterResponse register(final UserRegisterRequest userRegisterRequest) {
@@ -24,13 +26,14 @@ public class UserRegisterUseCase implements UserRegisterPort {
             throw new UserCreateException("Os campos 'name', 'surname', 'email' e 'password' não podem ser nulos");
         }
 
-        var user = UserFactory.fromRequest(userRegisterRequest);
+        var user = UserFactory.fromRegisterRequest(userRegisterRequest);
         user = userAdapter.saveUser(user);
+
 
         if(isNull(user) || isNull(user.getId())){
             throw new UserCreateException("Erro ao salvar usuario");
         }
 
-        return UserFactory.toResponse(user);
+        return UserFactory.toRegisterResponse(user);
     }
 }

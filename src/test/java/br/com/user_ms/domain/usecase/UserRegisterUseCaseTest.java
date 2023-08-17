@@ -2,11 +2,7 @@ package br.com.user_ms.domain.usecase;
 
 import br.com.user_ms.domain.adapters.UserAdapter;
 import br.com.user_ms.domain.faker.UserFaker;
-import br.com.user_ms.domain.port.model.UserRegisterRequest;
-import br.com.user_ms.domain.port.model.UserRegisterResponse;
 import br.com.user_ms.domain.entity.User;
-import br.com.user_ms.domain.entity.enums.Status;
-import br.com.user_ms.domain.entity.factory.UserFactory;
 import br.com.user_ms.domain.exceptions.UserCreateException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,7 +12,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static br.com.user_ms.domain.entity.enums.Status.ATIVO;
+
+import static br.com.user_ms.domain.entity.enums.Status.ACTIVE;
 import static java.util.Objects.nonNull;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -36,9 +33,9 @@ class UserRegisterUseCaseTest {
     @Test
     @DisplayName("Teste para verificar se o usuario foi salvo")
     public void userRegister(){
-        var userRegisterRequest = UserFaker.createValidRequest();
+        var userRegisterRequest = UserFaker.createRegisterValidRequest();
 
-        when(userAdapter.saveUser(any())).thenReturn(UserFaker.createValidUser());
+        when(userAdapter.saveUser(any())).thenReturn(UserFaker.createRegisterValidUser());
 
         var userRegisterResponse = useCase.register(userRegisterRequest);
 
@@ -53,7 +50,7 @@ class UserRegisterUseCaseTest {
         assertEquals(userRegisterRequest.getEmail(), user.getEmail());
         assertEquals(userRegisterRequest.getSurname(), user.getSurname());
         assertEquals(userRegisterRequest.getPassword(), user.getPassword());
-        assertEquals(ATIVO, user.getStatus());
+        assertEquals(ACTIVE, user.getStatus());
 
         assert nonNull(userRegisterResponse.getId());
         assertEquals(user.getStatus(), userRegisterResponse.getStatus());
@@ -61,20 +58,20 @@ class UserRegisterUseCaseTest {
 
     @Test
     @DisplayName("Teste para verificar se o UserRegisterRequestDto esta com todos os parametros para ser salvo")
-    public void userRegisterRequestExeption(){
-        var userRegisterRequestNoName = UserFaker.createRequestWithNoName();
+    public void userRegisterRequestException(){
+        var userRegisterRequestNoName = UserFaker.createRegisterRequestWithNoName();
 
         assertThrows(UserCreateException.class, () -> useCase.register(userRegisterRequestNoName));
 
-        var userRegisterRequestNoSurname = UserFaker.createRequestWithNoSurname();
+        var userRegisterRequestNoSurname = UserFaker.createRegisterRequestWithNoSurname();
 
         assertThrows(UserCreateException.class, () -> useCase.register(userRegisterRequestNoSurname));
 
-        var userRegisterRequestNoEmail = UserFaker.createRequestWithNoEmail();
+        var userRegisterRequestNoEmail = UserFaker.createRegisterRequestWithNoEmail();
 
         assertThrows(UserCreateException.class, () -> useCase.register(userRegisterRequestNoEmail));
 
-        var userRegisterRequestNoPassword = UserFaker.createRequestWithNoPassword();
+        var userRegisterRequestNoPassword = UserFaker.createRegisterRequestWithNoPassword();
 
         assertThrows(UserCreateException.class, () -> useCase.register(userRegisterRequestNoPassword));
     }
@@ -82,10 +79,10 @@ class UserRegisterUseCaseTest {
 
     @Test
     @DisplayName("Teste para verificar se o usuario não foi salvo")
-    public void userRegisterResponseExeption(){
-        var userRegisterRequest = UserFaker.createValidRequest();
+    public void userRegisterResponseException(){
+        var userRegisterRequest = UserFaker.createRegisterValidRequest();
 
-        when(userAdapter.saveUser(any())).thenReturn(UserFaker.createUnsavedUser());
+        when(userAdapter.saveUser(any())).thenReturn(UserFaker.createRegisterUnsavedUser());
 
         assertThrows(UserCreateException.class, () -> useCase.register(userRegisterRequest));
     }

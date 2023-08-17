@@ -5,11 +5,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class UserRegisterRequest {
+public class UserModifyRequest {
 
+    private String id;
     private String name;
     private String surname;
-    private String email;
-    private String password;
-    private Byte perfilImage;
 }
