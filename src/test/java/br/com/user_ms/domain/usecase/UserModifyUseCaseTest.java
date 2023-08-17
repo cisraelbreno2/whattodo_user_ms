@@ -2,7 +2,7 @@ package br.com.user_ms.domain.usecase;
 
 import br.com.user_ms.domain.adapters.UserAdapter;
 import br.com.user_ms.domain.entity.User;
-import br.com.user_ms.domain.exceptions.UserModifyExeption;
+import br.com.user_ms.domain.exceptions.UserModifyException;
 import br.com.user_ms.domain.faker.UserFaker;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -55,13 +55,13 @@ public class UserModifyUseCaseTest {
 
     @Test
     @DisplayName("Teste para verificar se o UserModifyRequestDto esta com todos os parametros para ser modificado")
-    public void userModifyRequestExeption(){
+    public void userModifyRequestException(){
         var userModifyRequestNoName = UserFaker.createModifyRequestWithNoName();
 
-        assertThrows(UserModifyExeption.class, () -> useCase.modify(userModifyRequestNoName));
+        assertThrows(UserModifyException.class, () -> useCase.modify(userModifyRequestNoName));
 
         var userModifyRequestNoSurname = UserFaker.createModifyRequestWithNoSurname();
 
-        assertThrows(UserModifyExeption.class, () -> useCase.modify(userModifyRequestNoSurname));
+        assertThrows(UserModifyException.class, () -> useCase.modify(userModifyRequestNoSurname));
     }
 }

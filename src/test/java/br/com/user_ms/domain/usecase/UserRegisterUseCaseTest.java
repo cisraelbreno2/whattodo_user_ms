@@ -58,7 +58,7 @@ class UserRegisterUseCaseTest {
 
     @Test
     @DisplayName("Teste para verificar se o UserRegisterRequestDto esta com todos os parametros para ser salvo")
-    public void userRegisterRequestExeption(){
+    public void userRegisterRequestException(){
         var userRegisterRequestNoName = UserFaker.createRegisterRequestWithNoName();
 
         assertThrows(UserCreateException.class, () -> useCase.register(userRegisterRequestNoName));
@@ -79,7 +79,7 @@ class UserRegisterUseCaseTest {
 
     @Test
     @DisplayName("Teste para verificar se o usuario não foi salvo")
-    public void userRegisterResponseExeption(){
+    public void userRegisterResponseException(){
         var userRegisterRequest = UserFaker.createRegisterValidRequest();
 
         when(userAdapter.saveUser(any())).thenReturn(UserFaker.createRegisterUnsavedUser());

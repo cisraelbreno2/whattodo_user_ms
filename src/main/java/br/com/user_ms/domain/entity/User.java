@@ -37,14 +37,14 @@ public class User {
         this.status = status;
     }
 
-    public void modificarName(final String name){
+    public void modifyName(final String name){
         if(isNull(name) || name.isEmpty()){
             throw new IllegalArgumentException("Nome não pode estar vazio");
         }
         this.name = name;
     }
 
-    public void modificarSurname(final String surname){
+    public void modifySurname(final String surname){
         if(isNull(surname) || surname.isEmpty()){
             throw new IllegalArgumentException("Surnome não pode estar vazio");
         }
