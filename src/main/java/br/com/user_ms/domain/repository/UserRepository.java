@@ -1,8 +1,8 @@
-package br.com.user_ms.domain.adapters;
+package br.com.user_ms.domain.repository;
 
 import br.com.user_ms.domain.entity.User;
 
-public interface UserAdapter {
+public interface UserRepository {
 
     User saveUser(User user);
 

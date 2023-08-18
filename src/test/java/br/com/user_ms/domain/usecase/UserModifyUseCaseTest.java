@@ -1,6 +1,6 @@
 package br.com.user_ms.domain.usecase;
 
-import br.com.user_ms.domain.adapters.UserAdapter;
+import br.com.user_ms.domain.repository.UserRepository;
 import br.com.user_ms.domain.entity.User;
 import br.com.user_ms.domain.exceptions.UserModifyException;
 import br.com.user_ms.domain.faker.UserFaker;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 public class UserModifyUseCaseTest {
 
     @Mock
-    UserAdapter userAdapter;
+    UserRepository userRepository;
     @InjectMocks
     UserModifyUseCase useCase;
 
@@ -35,14 +35,14 @@ public class UserModifyUseCaseTest {
     public void userModify(){
         var userModifyRequest = UserFaker.createModifyValidRequest();
 
-        when(userAdapter.saveUser(any())).thenReturn(UserFaker.createModifyValidUser());
-        when(userAdapter.findById(any())).thenReturn(UserFaker.findByIdValidUser());
+        when(userRepository.saveUser(any())).thenReturn(UserFaker.createModifyValidUser());
+        when(userRepository.findById(any())).thenReturn(UserFaker.findByIdValidUser());
 
         var userModifyResponse = useCase.modify(userModifyRequest);
 
         var userCaptor = ArgumentCaptor.forClass(User.class);
 
-        verify(userAdapter, times(1)).saveUser(userCaptor.capture());
+        verify(userRepository, times(1)).saveUser(userCaptor.capture());
 
         var user = userCaptor.getValue();
 
