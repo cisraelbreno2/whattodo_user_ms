@@ -1,6 +1,6 @@
 package br.com.user_ms.domain.usecase;
 
-import br.com.user_ms.domain.adapters.UserAdapter;
+import br.com.user_ms.domain.repository.UserRepository;
 import br.com.user_ms.domain.entity.factory.UserFactory;
 import br.com.user_ms.domain.exceptions.UserModifyException;
 import br.com.user_ms.domain.port.UserModifyPort;
@@ -17,7 +17,7 @@ import static java.util.Objects.isNull;
 @RequiredArgsConstructor
 public class UserModifyUseCase implements UserModifyPort {
 
-    private final UserAdapter userAdapter;
+    private final UserRepository userRepository;
 
     @Override
     public UserModifyResponse modify(UserModifyRequest userModifyRequest) {
@@ -25,12 +25,12 @@ public class UserModifyUseCase implements UserModifyPort {
             throw new UserModifyException("Os campos de identificador, nome e sobrenome não podem estar vazios");
         }
 
-        var user = userAdapter.findById(userModifyRequest.getId());
+        var user = userRepository.findById(userModifyRequest.getId());
         user.modifyName(userModifyRequest.getName());
         user.modifySurname(userModifyRequest.getSurname());
         user.modificarStatus(MODIFY);
 
-        userAdapter.saveUser(user);
+        userRepository.saveUser(user);
 
         return UserFactory.toModifyResponse(user);
     }
