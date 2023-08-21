@@ -1,19 +1,26 @@
 services:
+  user_ms:
+    image: user_ms-image
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    depends_on:
+      - mongodb
+    ports:
+      - 8080:8080
+    volumes:
+      - /data/user_ms
+    links:
+      - mongodb:localhost_db
   mongodb:
-    name: 'mongo-user'
     image: 'mongo:latest'
+    restart: always
     environment:
       - 'MONGO_INITDB_DATABASE=user'
       - 'MONGO_INITDB_ROOT_PASSWORD=root'
       - 'MONGO_INITDB_ROOT_USERNAME=root'
     ports:
-      - '27017:27017'
+      - 27017:27017
     volumes:
       - '/db:/data/db'
-#  rabbitmq:
-#    image: 'rabbitmq:latest'
-#    environment:
-#      - 'RABBITMQ_DEFAULT_PASS=secret'
-#      - 'RABBITMQ_DEFAULT_USER=myuser'
-#    ports:
-#      - '5672'
