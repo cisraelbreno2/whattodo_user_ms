@@ -1,6 +1,6 @@
 package br.com.user_ms.domain.usecase;
 
-import br.com.user_ms.domain.adapters.UserAdapter;
+import br.com.user_ms.domain.repository.UserRepository;
 import br.com.user_ms.domain.faker.UserFaker;
 import br.com.user_ms.domain.entity.User;
 import br.com.user_ms.domain.exceptions.UserCreateException;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 
 class UserRegisterUseCaseTest {
     @Mock
-    UserAdapter userAdapter;
+    UserRepository userRepository;
     @InjectMocks
     UserRegisterUseCase useCase;
 
@@ -35,13 +35,13 @@ class UserRegisterUseCaseTest {
     public void userRegister(){
         var userRegisterRequest = UserFaker.createRegisterValidRequest();
 
-        when(userAdapter.saveUser(any())).thenReturn(UserFaker.createRegisterValidUser());
+        when(userRepository.saveUser(any())).thenReturn(UserFaker.createRegisterValidUser());
 
         var userRegisterResponse = useCase.register(userRegisterRequest);
 
         var userCaptor = ArgumentCaptor.forClass(User.class);
 
-        verify(userAdapter, times(1)).saveUser(userCaptor.capture());
+        verify(userRepository, times(1)).saveUser(userCaptor.capture());
 
         var user = userCaptor.getValue();
 
@@ -82,7 +82,7 @@ class UserRegisterUseCaseTest {
     public void userRegisterResponseException(){
         var userRegisterRequest = UserFaker.createRegisterValidRequest();
 
-        when(userAdapter.saveUser(any())).thenReturn(UserFaker.createRegisterUnsavedUser());
+        when(userRepository.saveUser(any())).thenReturn(UserFaker.createRegisterUnsavedUser());
 
         assertThrows(UserCreateException.class, () -> useCase.register(userRegisterRequest));
     }

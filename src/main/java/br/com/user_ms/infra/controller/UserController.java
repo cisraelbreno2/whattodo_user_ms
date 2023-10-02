@@ -1,18 +1,14 @@
 package br.com.user_ms.infra.controller;
 
+import br.com.user_ms.domain.port.FindUserPort;
 import br.com.user_ms.domain.port.UserModifyPort;
 import br.com.user_ms.domain.port.UserRegisterPort;
-import br.com.user_ms.domain.port.model.UserModifyRequest;
-import br.com.user_ms.domain.port.model.UserModifyResponse;
-import br.com.user_ms.domain.port.model.UserRegisterRequest;
-import br.com.user_ms.domain.port.model.UserRegisterResponse;
+import br.com.user_ms.domain.port.model.*;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,6 +17,12 @@ public class UserController {
 
     private final UserModifyPort userModifyPort;
     private final UserRegisterPort userRegisterPort;
+    private final FindUserPort findUserPort;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<UserResponse> findById(@PathVariable("id") String id){
+        return new ResponseEntity<>(findUserPort.findById(id), HttpStatus.OK);
+    }
 
     @PostMapping("/register")
     public ResponseEntity<UserRegisterResponse> register(@RequestBody UserRegisterRequest userRegisterRequest){
